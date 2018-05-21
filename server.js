@@ -6,9 +6,17 @@ var Pet = require('./models/petModel');
 
 const SERVER_PORT = 8080;
 
-mongoose.connect('mongodb://localhost/petsDB', function() {
+
+
+mongoose.connect(process.env.CONNECTION_STRING||'mongodb://localhost/petsDB', function() {
   console.log("DB connection established!!!");
 })
+
+// //original
+// mongoose.connect('mongodb://localhost/petsDB', function() {
+//   console.log("DB connection established!!!");
+// })
+
 
 var app = express();
 app.use(express.static('public'));
@@ -67,7 +75,7 @@ app.delete(`/pets/:id`, (req, res) => {
   })
 });
 
-
-app.listen(SERVER_PORT, () => {
-  console.log("Server started on port " + SERVER_PORT);
-});
+app.listen(process.env.PORT || '8080');
+// app.listen(SERVER_PORT, () => {
+//   console.log("Server started on port " + SERVER_PORT);
+// });
